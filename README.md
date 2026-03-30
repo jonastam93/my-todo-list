@@ -6,8 +6,8 @@ Its an app that list things to do to help with CodeTheDream assignments.
 
 ## Installation  Instructions
 
-To istall the app first make sure you have Node.js istalled. Then you open a terminal and run npx create-vite@latest --template react . 
-Next istall project dependencies using npm istall.
+To install the app first make sure you have Node.js installed. Then you open a terminal and run npx create-vite@latest --template react . 
+Next istall project dependencies using npm install.
 
 ## How to run the development server
 
