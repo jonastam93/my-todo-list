@@ -1,16 +1,15 @@
-# React + Vite
+# App name and description
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+My todo list app.
 
-Currently, two official plugins are available:
+Its an app that list things to do to help with CodeTheDream assignments.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Installation  Instructions
 
-## React Compiler
+To install the app first make sure you have Node.js installed. Then you open a terminal and run npx create-vite@latest --template react . 
+Next istall project dependencies using npm install.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## How to run the development server
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+To run the server just type npm run dev in the terminal and then a link should appear that says localhost: 5173.
+Click on that link and the app should appear in the browser.
