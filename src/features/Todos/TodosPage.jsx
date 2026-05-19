@@ -3,7 +3,7 @@ import TodoForm from './features/Todos/TodoForm';
 import TodoList from './features/Todos/TodoList';
 import { useState } from "react";
 
-function App() {
+function TodosPage() {
   const [todoList, setTodoList] = useState([]);
 
   function addTodo(todoTitle) {
@@ -52,4 +52,4 @@ function App() {
   );
 }
 
-export default App;
+export default TodosPage;
