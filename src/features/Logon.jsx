@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-function Logon({ onSetEmail = () => {}, onSetToken = () => {} }) {
+function Logon({ onSetEmail, onSetToken }) {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [authError, setAuthError] = useState("");
@@ -14,7 +14,7 @@ function Logon({ onSetEmail = () => {}, onSetToken = () => {} }) {
     
     try {
         const response = await fetch("/api/users/logon", {
-            method: "Post",
+            method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
