@@ -9,13 +9,8 @@ function App() {
 
   return (
     <>
-      <Header
-        email={email}
-        token={token}
-        onSetToken={setToken}
-        onSetEmail={setEmail}
-      />
-
+     <Header />
+      
       {token ? (
         <TodosPage token={token} />
       ) : (
