@@ -113,7 +113,9 @@ const invalidateCache = useCallback(() => {
 
     // replace temporary todo with server todo
     setTodoList((previous) =>
-      previous.map((todo) => (todo.id === tempId ? savedTodo : todo))
+      previous.map((todo) =>
+        todo.id === newTodo.id ? savedTodo : todo
+      )
     );
 
     invalidateCache();
@@ -183,7 +185,7 @@ const invalidateCache = useCallback(() => {
   // optimistic UI update
   setTodoList((previous) =>
     previous.map((todo) =>
-      todo.id === updatedTodo.id ? updatedTodo : todo
+      todo.id === editedTodo.id ? editedTodo : todo
     )
   );
 
