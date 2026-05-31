@@ -73,7 +73,6 @@ function TodosPage({ token }) {
 }, [token, sortBy, sortDirection, debouncedFilterTerm]);
 
 const invalidateCache = useCallback(() => {
-  console.log("Invalidating memo cache after todo mutation");
 
   setDataVersion((prev) => prev + 1);
 }, []);
@@ -143,8 +142,6 @@ const invalidateCache = useCallback(() => {
     )
   );
 
-  invalidateCache();
-
   try {
     const response = await fetch(`/api/tasks/${id}`, {
       method: "PATCH",
@@ -161,6 +158,8 @@ const invalidateCache = useCallback(() => {
     if (!response.ok) {
       throw new Error("Failed to complete todo.");
     }
+
+    invalidateCache();
 
   } catch (error) {
     // rollback to original todo
@@ -189,8 +188,6 @@ const invalidateCache = useCallback(() => {
     )
   );
 
-  invalidateCache();
-
   try {
     const response = await fetch(`/api/tasks/${editedTodo.id}`, {
       method: "PATCH",
@@ -208,6 +205,8 @@ const invalidateCache = useCallback(() => {
     if (!response.ok) {
       throw new Error("Failed to update todo.");
     }
+
+    invalidateCache();
 
   } catch (error) {
     // rollback original todo
