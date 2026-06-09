@@ -1,0 +1,161 @@
+export const TODO_ACTIONS = {
+    // Fetch operations
+    FETCH_START: "FETCH_START",
+    FETCH_SUCCESS: "FETCH_SUCCESS",
+    FETCH_ERROR: "FETCH_ERROR",
+
+    // Add todo operations
+    ADD_TODO_START: "ADD_TODO_START",
+    ADD_TODO_SUCCESS: "ADD_TODO_SUCCESS",
+    ADD_TODO_ERROR: "ADD_TODO_ERROR",
+
+    // Complete todo operations
+    COMPLETE_TODO_START: "COMPLETE_TODO_START",
+    COMPLETE_TODO_SUCCESS: "COMPLETE_TODO_SUCCESS",
+    COMPLETE_TODO_ERROR: "COMPLETE_TODO_ERROR",
+
+    // Update todo operations
+    UPDATE_TODO_START: "UPDATE_TODO_START",
+    UPDATE_TODO_SUCCESS: "UPDATE_TODO_SUCCESS",
+    UPDATE_TODO_ERROR: "UPDATE_TODO_ERROR",
+    REPLACE_TEMP_TODO: "REPLACE_TEMP_TODO",
+    
+    // UI operations
+    SET_SORT: "SET_SORT",
+    SET_FILTER: "SET_FILTER",
+    CLEAR_ERROR: "CLEAR_ERROR",
+    CLEAR_FILTER_ERROR: "CLEAR_FILTER_ERROR",
+    RESET_FILTERS: "RESET_FILTERS",
+
+    INVALIDATE_CACHE: "INVALIDATE_CACHE",
+};
+
+export const initialTodoState = {
+    todoList: [],
+    dataVersion: 0,
+    error: "",
+    filterError: "",
+    isTodoListLoading: false,
+    sortBy: "createdAt",
+    sortDirection: "desc",
+    filterTerm: '',
+};
+
+export function todoReducer(state, action) {
+    switch (action.type) {
+        case TODO_ACTIONS.FETCH_START:
+            return {
+                ...state,
+                isTodoListLoading: true,
+                error: "",
+                filterError: "",
+            };
+        case TODO_ACTIONS.FETCH_SUCCESS:
+            return {
+                ...state,
+                todoList: action.payload.todos,
+                isTodoListLoading: false,
+            };
+        case TODO_ACTIONS.FETCH_ERROR:
+            return {
+                ...state,
+                error: action.payload.message,
+                isTodoListLoading: false,
+            };
+        case TODO_ACTIONS.SET_FILTER:
+            return {
+                ...state,
+                filterTerm: action.payload.filterTerm,
+            };
+        case TODO_ACTIONS.SET_SORT:
+            return {
+                ...state,
+                sortBy: action.payload.sortBy,
+                sortDirection: action.payload.sortDirection,
+            };
+        case TODO_ACTIONS.INVALIDATE_CACHE:
+            return {
+                ...state,
+                dataVersion: state.dataVersion + 1,
+            };
+        case TODO_ACTIONS.CLEAR_ERROR:
+            return {
+                ...state,
+                error: "",
+            };
+        case TODO_ACTIONS.CLEAR_FILTER_ERROR:
+            return {
+                ...state,
+                filterError: "",
+            };
+        case TODO_ACTIONS.RESET_FILTERS:
+            return {
+                ...state,
+                 filterTerm: '',
+            };
+        case TODO_ACTIONS.COMPLETE_TODO_START:
+            return {
+                ...state,
+                error: "",
+            };
+        case TODO_ACTIONS.COMPLETE_TODO_SUCCESS:
+            return {
+                ...state,
+                todoList: state.todoList.map((todo) =>
+                    todo.id === action.payload.id
+                        ? { ...todo, isCompleting: true }
+                        : todo
+                ),
+            };
+        case TODO_ACTIONS.COMPLETE_TODO_ERROR:
+            return {
+                ...state,
+                error: action.payload.message,
+            };
+        case TODO_ACTIONS.UPDATE_TODO_START:
+            return {
+                ...state,
+                error: "",
+            };
+        case TODO_ACTIONS.UPDATE_TODO_SUCCESS:
+            return {
+                ...state,
+                todoList: state.todoList.map((todo) =>
+                    todo.id === action.payload.todo.id
+                        ? action.payload.todo
+                        : todo
+                ),
+            };
+        case TODO_ACTIONS.UPDATE_TODO_ERROR:
+            return {
+                ...state,
+                error: action.payload.message,
+            };
+        case TODO_ACTIONS.REPLACE_TEMP_TODO:
+            return {
+                ...state,
+                todoList: state.todoList.map((todo) =>
+                    todo.id === action.payload.tempId
+                        ? action.payload.newTodo
+                        : todo
+                ),
+            };
+        case TODO_ACTIONS.ADD_TODO_START:
+            return {
+                ...state,
+                error: "",
+            };
+        case TODO_ACTIONS.ADD_TODO_SUCCESS:
+            return {
+                ...state,
+                todoList: [...state.todoList, action.payload.todo],
+            };
+        case TODO_ACTIONS.ADD_TODO_ERROR:
+            return {
+                ...state,
+                error: action.payload.message,
+            };
+        default:
+            throw new Error(`Unknown action type: ${action.type}`);
+    }
+};
