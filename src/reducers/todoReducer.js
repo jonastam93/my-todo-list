@@ -35,7 +35,7 @@ export const initialTodoState = {
     dataVersion: 0,
     error: "",
     filterError: "",
-    isTodoListLoading: false,
+    isTodoListLoading: true,
     sortBy: "createdAt",
     sortDirection: "desc",
     filterTerm: '',
@@ -59,8 +59,13 @@ export function todoReducer(state, action) {
         case TODO_ACTIONS.FETCH_ERROR:
             return {
                 ...state,
-                error: action.payload.message,
                 isTodoListLoading: false,
+                error: action.payload.isFilterError
+                    ? ""
+                    : action.payload.error,
+                filterError: action.payload.isFilterError
+                    ? action.payload.error
+                    : "",
             };
         case TODO_ACTIONS.SET_FILTER:
             return {
@@ -103,14 +108,19 @@ export function todoReducer(state, action) {
                 ...state,
                 todoList: state.todoList.map((todo) =>
                     todo.id === action.payload.id
-                        ? { ...todo, isCompleting: true }
+                        ? { ...todo, isCompleted: true }
                         : todo
                 ),
             };
         case TODO_ACTIONS.COMPLETE_TODO_ERROR:
             return {
                 ...state,
-                error: action.payload.message,
+                error: action.payload.error,
+                todoList: state.todoList.map((todo) =>
+                    todo.id === action.payload.todo.id
+                        ? action.payload.todo
+                        : todo
+                ),
             };
         case TODO_ACTIONS.UPDATE_TODO_START:
             return {
@@ -129,7 +139,12 @@ export function todoReducer(state, action) {
         case TODO_ACTIONS.UPDATE_TODO_ERROR:
             return {
                 ...state,
-                error: action.payload.message,
+                error: action.payload.error,
+                todoList: state.todoList.map((todo) =>
+                    todo.id === action.payload.todo.id
+                    ? action.payload.todo
+                    : todo
+                ),
             };
         case TODO_ACTIONS.REPLACE_TEMP_TODO:
             return {
@@ -153,7 +168,10 @@ export function todoReducer(state, action) {
         case TODO_ACTIONS.ADD_TODO_ERROR:
             return {
                 ...state,
-                error: action.payload.message,
+                error: action.payload.error,
+                todoList: state.todoList.filter(
+                    (todo) => todo.id !== action.payload.tempId
+                ),
             };
         default:
             throw new Error(`Unknown action type: ${action.type}`);

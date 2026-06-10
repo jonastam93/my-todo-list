@@ -104,7 +104,8 @@ const invalidateCache = useCallback(() => {
   dispatch({
     type: TODO_ACTIONS.ADD_TODO_SUCCESS,
     payload: {
-      todo: newTodo,
+      error: error.message,
+      tempId: tempTodo.id,
     },
   });
 
@@ -133,7 +134,7 @@ const invalidateCache = useCallback(() => {
       type: TODO_ACTIONS.REPLACE_TEMP_TODO,
       payload: {
         tempId: newTodo.id,
-        savedTodo,
+        newTodo: createdTodo,
       },
     });
 
@@ -191,8 +192,8 @@ const invalidateCache = useCallback(() => {
     dispatch({
       type: TODO_ACTIONS.COMPLETE_TODO_ERROR,
       payload: {
+        error: error.message,
         todo: originalTodo,
-        message: error.message,
       },
     });
   }
@@ -208,19 +209,19 @@ const invalidateCache = useCallback(() => {
 
   // store original todo for rollback
   const originalTodo = todoList.find(
-    (todo) => todo.id === editedTodo.id
+    (todo) => todo.id === updatedTodo.id
   );
 
   // optimistic UI update
   dispatch({
     type: TODO_ACTIONS.UPDATE_TODO_SUCCESS,
     payload: {
-      todo: editedTodo,
+      todo: updatedTodo,
     },
   });
 
   try {
-    const response = await fetch(`/api/tasks/${editedTodo.id}`, {
+    const response = await fetch(`/api/tasks/${updatedTodo.id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -228,8 +229,8 @@ const invalidateCache = useCallback(() => {
       },
       credentials: "include",
       body: JSON.stringify({
-        title: editedTodo.title,
-        isCompleted: editedTodo.isCompleted,
+        title: updatedTodo.title,
+        isCompleted: updatedTodo.isCompleted,
       }),
     });
 
@@ -244,8 +245,8 @@ const invalidateCache = useCallback(() => {
     dispatch({
       type: TODO_ACTIONS.UPDATE_TODO_ERROR,
       payload: {
+        error: error.message,
         todo: originalTodo,
-        message: error.message,
       },
     });
   }
