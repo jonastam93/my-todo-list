@@ -72,8 +72,8 @@ function TodosPage() {
         dispatch({
           type: TODO_ACTIONS.FETCH_ERROR,
           payload: {
-            message: `Error fetching todos: ${error.message}`,
-            isFilterError: false,
+            error: `Error fetching todos: ${error.message}`,
+            isFilterError,
           },
         });
       }
@@ -104,8 +104,7 @@ const invalidateCache = useCallback(() => {
   dispatch({
     type: TODO_ACTIONS.ADD_TODO_SUCCESS,
     payload: {
-      error: error.message,
-      tempId: tempTodo.id,
+      todo: newTodo,
     },
   });
 
@@ -127,14 +126,17 @@ const invalidateCache = useCallback(() => {
       throw new Error("Failed to add todo.");
     }
 
-    const savedTodo = await response.json();
+    const savedTodo = await createdTodo({
+      title,
+      token,
+    });
 
     // replace temporary todo with server todo
     dispatch({
       type: TODO_ACTIONS.REPLACE_TEMP_TODO,
       payload: {
         tempId: newTodo.id,
-        newTodo: createdTodo,
+        newTodo: savedTodo,
       },
     });
 
@@ -209,19 +211,19 @@ const invalidateCache = useCallback(() => {
 
   // store original todo for rollback
   const originalTodo = todoList.find(
-    (todo) => todo.id === updatedTodo.id
+    (todo) => todo.id === editedTodo.id
   );
 
   // optimistic UI update
   dispatch({
     type: TODO_ACTIONS.UPDATE_TODO_SUCCESS,
     payload: {
-      todo: updatedTodo,
+      todo: editedTodo,
     },
   });
 
   try {
-    const response = await fetch(`/api/tasks/${updatedTodo.id}`, {
+    const response = await fetch(`/api/tasks/${editedTodo.id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -229,8 +231,8 @@ const invalidateCache = useCallback(() => {
       },
       credentials: "include",
       body: JSON.stringify({
-        title: updatedTodo.title,
-        isCompleted: updatedTodo.isCompleted,
+        title: editedTodo.title,
+        isCompleted: editedTodo.isCompleted,
       }),
     });
 
