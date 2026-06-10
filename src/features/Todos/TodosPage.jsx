@@ -73,7 +73,7 @@ function TodosPage() {
           type: TODO_ACTIONS.FETCH_ERROR,
           payload: {
             error: `Error fetching todos: ${error.message}`,
-            isFilterError,
+            isFilterError: !!debouncedFilterTerm,
           },
         });
       }
@@ -126,10 +126,7 @@ const invalidateCache = useCallback(() => {
       throw new Error("Failed to add todo.");
     }
 
-    const savedTodo = await createdTodo({
-      title,
-      token,
-    });
+    const savedTodo = await response.json();
 
     // replace temporary todo with server todo
     dispatch({
