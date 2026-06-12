@@ -15,7 +15,7 @@ export function useAuth() {
 // Provider component
 export function AuthProvider({ children }) {
     // State for authentication
-    const [email, setEmail] = useState("");
+    const [name, setName] = useState("");
     const [token, setToken] = useState("");
 
 
@@ -33,7 +33,7 @@ export function AuthProvider({ children }) {
 
             if (res.status === 200 && data.name && data.csrfToken) {
                 // Success: Update state
-                setEmail(data.name);
+                setName(data.name);
                 setToken(data.csrfToken);
                 return { success: true };
             } else {
@@ -55,7 +55,7 @@ export function AuthProvider({ children }) {
         try {
             // If not authenticated, just clear state
             if (!token) {
-                setEmail("");
+                setName("");
                 setToken("");
 
                 return { success: true };
@@ -70,13 +70,13 @@ export function AuthProvider({ children }) {
             await fetch("/api/users/logoff", options);
 
             // Always clear local auth state
-            setEmail("");
+            setName("");
             setToken("");
 
             return { success: true };
         } catch (error) {
             // Still clear local auth state on failure
-            setEmail("");
+            setName("");
             setToken("");
 
             return {
@@ -87,7 +87,7 @@ export function AuthProvider({ children }) {
     };
     // Context value object
     const value = {
-        email,
+        name,
         token,
         isAuthenticated: !!token,
         login,
