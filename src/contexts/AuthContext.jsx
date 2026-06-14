@@ -15,8 +15,13 @@ export function useAuth() {
 // Provider component
 export function AuthProvider({ children }) {
     // State for authentication
-    const [email, setEmail] = useState("");
-    const [token, setToken] = useState("");
+    const [email, setEmail] = useState(
+        localStorage.getItem("email") || ""
+    );
+
+    const [token, setToken] = useState(
+        localStorage.getItem("token") || ""
+    );
 
 
     const login = async (userEmail, password) => {
@@ -35,6 +40,10 @@ export function AuthProvider({ children }) {
                 // Success: Update state
                 setEmail(data.name);
                 setToken(data.csrfToken);
+
+                localStorage.setItem("email", data.name);
+                localStorage.setItem("token", data.csrfToken);
+
                 return { success: true };
             } else {
                 // Failure: Return error
@@ -58,6 +67,9 @@ export function AuthProvider({ children }) {
                 setEmail("");
                 setToken("");
 
+                localStorage.removeItem("email");
+                localStorage.removeItem("token");
+
                 return { success: true };
             }
 
@@ -73,11 +85,17 @@ export function AuthProvider({ children }) {
             setEmail("");
             setToken("");
 
+            localStorage.removeItem("email");
+            localStorage.removeItem("token");
+
             return { success: true };
         } catch (error) {
             // Still clear local auth state on failure
             setEmail("");
             setToken("");
+
+            localStorage.removeItem("email");
+            localStorage.removeItem("token");
 
             return {
                 success: false,
