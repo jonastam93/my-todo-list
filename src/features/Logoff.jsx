@@ -24,9 +24,13 @@ function Logoff() {
   }
 
   return (
-    <button onClick={handleLogoff} disabled={isLoggingOff}>
-      Log Out
-    </button>
+    <>
+      <button onClick={handleLogoff} disabled={isLoggingOff}>
+        {isLoggingOff ? "Logging out..." : "Log Out"}
+      </button>
+
+      {error && <p>{error}</p>}
+    </>
   );
 }
 

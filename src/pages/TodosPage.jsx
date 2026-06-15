@@ -10,7 +10,7 @@ import {
   TODO_ACTIONS,
 } from "../reducers/todoReducer";
 import { useAuth } from "../contexts/AuthContext";
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router";
 import StatusFilter from "../shared/StatusFilter";
 
 function TodosPage() {
