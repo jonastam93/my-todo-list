@@ -152,7 +152,7 @@ const invalidateCache = useCallback(() => {
       type: TODO_ACTIONS.ADD_TODO_ERROR,
       payload: {
         tempId: newTodo.id,
-        message: error.message,
+        error: error.message,
       },
     });
    }
