@@ -69,7 +69,13 @@ function TodosPage() {
         throw new Error("Failed to fetch todos.");
       }
 
-      const data = await response.json();
+      const { tasks: todos } = await response.json();
+
+      const total = todos.length;
+      const completed = todos.filter(
+        (todo) => todo.isCompleted
+      ).length;
+      const active = total - completed;
 
       dispatch({
         type: TODO_ACTIONS.FETCH_SUCCESS,
