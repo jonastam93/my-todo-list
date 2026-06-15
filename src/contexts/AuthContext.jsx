@@ -38,7 +38,7 @@ export function AuthProvider({ children }) {
 
             if (res.status === 200 && data.name && data.csrfToken) {
                 // Success: Update state
-                setEmail(data.name);
+                setName(data.name);
                 setToken(data.csrfToken);
 
                 localStorage.setItem("email", data.name);
@@ -64,7 +64,7 @@ export function AuthProvider({ children }) {
         try {
             // If not authenticated, just clear state
             if (!token) {
-                setEmail("");
+                setName("");
                 setToken("");
 
                 localStorage.removeItem("email");
@@ -82,7 +82,7 @@ export function AuthProvider({ children }) {
             await fetch("/api/users/logoff", options);
 
             // Always clear local auth state
-            setEmail("");
+            setName("");
             setToken("");
 
             localStorage.removeItem("email");
@@ -91,7 +91,7 @@ export function AuthProvider({ children }) {
             return { success: true };
         } catch (error) {
             // Still clear local auth state on failure
-            setEmail("");
+            setName("");
             setToken("");
 
             localStorage.removeItem("email");
@@ -105,7 +105,7 @@ export function AuthProvider({ children }) {
     };
     // Context value object
     const value = {
-        email,
+        name,
         token,
         isAuthenticated: !!token,
         login,
