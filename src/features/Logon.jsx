@@ -1,6 +1,9 @@
 import { useState } from "react";
+import { useAuth } from "../contexts/AuthContext";
 
-function Logon({ onSetEmail, onSetToken }) {
+function Logon() {
+    const { login } = useAuth();
+
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [authError, setAuthError] = useState("");
@@ -13,27 +16,11 @@ function Logon({ onSetEmail, onSetToken }) {
         setAuthError("");
     
     try {
-        const response = await fetch("/api/users/logon", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            credentials: "include",
-            body: JSON.stringify({
-                email,
-                password,
-            }),
-        });
+        const result = await login(email, password);
 
-        const result = await response.json();
-
-        if (!response.ok) {
-            throw new Error(result.message || "Unable to log in.");
+        if (!result.success) {
+            setAuthError(result.error);
         }
-
-        // successful login
-        onSetEmail(result.name);
-        onSetToken(result.csrfToken);
      
      } catch (error) {
         setAuthError(error.message || "Login failed.");
