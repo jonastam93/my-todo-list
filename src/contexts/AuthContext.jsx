@@ -15,8 +15,8 @@ export function useAuth() {
 // Provider component
 export function AuthProvider({ children }) {
     // State for authentication
-    const [email, setEmail] = useState(
-        localStorage.getItem("email") || ""
+    const [name, setName] = useState(
+        localStorage.getItem("name") || ""
     );
 
     const [token, setToken] = useState(
@@ -41,7 +41,7 @@ export function AuthProvider({ children }) {
                 setName(data.name);
                 setToken(data.csrfToken);
 
-                localStorage.setItem("email", data.name);
+                localStorage.setItem("name", data.name);
                 localStorage.setItem("token", data.csrfToken);
 
                 return { success: true };
@@ -67,7 +67,7 @@ export function AuthProvider({ children }) {
                 setName("");
                 setToken("");
 
-                localStorage.removeItem("email");
+                localStorage.removeItem("name");
                 localStorage.removeItem("token");
 
                 return { success: true };
