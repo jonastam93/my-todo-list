@@ -22,11 +22,11 @@ Node.js backend API (external)
 📸 Screenshots
 Desktop View
 
-![Desktop View](desktop view.png)
+![Desktop View](https://vscode.dev/github/jonastam93/my-todo-list/blob/main/desktop%20view.png)
 
 Mobile View
 
-![Mobile View](./screenshots/mobile.png)
+![Mobile View](https://vscode.dev/github/jonastam93/my-todo-list/blob/main/mobile%20view.png)
 
 ⚙️ Getting Started
 Prerequisites
