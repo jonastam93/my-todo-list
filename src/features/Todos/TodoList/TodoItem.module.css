@@ -1,0 +1,42 @@
+.item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--color-border);
+
+  transition: background 0.2s ease;
+}
+
+.item:hover {
+  background: #f1f5f9;
+}
+
+.left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.text {
+  font-size: 16px;
+}
+
+.completed {
+  text-decoration: line-through;
+  color: var(--text-secondary);
+  opacity: 0.7;
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
+}
+
+.checkbox {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--color-accent);
+  cursor: pointer;
+}

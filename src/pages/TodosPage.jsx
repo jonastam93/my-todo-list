@@ -12,6 +12,9 @@ import {
 import { useAuth } from "../contexts/AuthContext";
 import { useSearchParams } from "react-router";
 import StatusFilter from "../shared/StatusFilter";
+import styles from "./TodosPage.module.css";
+import { sanitizeInput } from "../utils/sanitizeInput";
+import { validateTodoTitle } from "../utils/validation";
 
 function TodosPage() {
   const { token } = useAuth();
@@ -69,13 +72,7 @@ function TodosPage() {
         throw new Error("Failed to fetch todos.");
       }
 
-      const { tasks: todos } = await response.json();
-
-      const total = todos.length;
-      const completed = todos.filter(
-        (todo) => todo.isCompleted
-      ).length;
-      const active = total - completed;
+      const data = await response.json();
 
       dispatch({
         type: TODO_ACTIONS.FETCH_SUCCESS,
@@ -85,10 +82,11 @@ function TodosPage() {
         dispatch({
           type: TODO_ACTIONS.FETCH_ERROR,
           payload: {
-            error: `Error fetching todos: ${error.message}`,
+            error: "Unable to load todos. Please try again.",
             isFilterError: !!debouncedFilterTerm,
-          },
+          }
         });
+        console.error(error);
       }
     }
 
@@ -104,12 +102,19 @@ const invalidateCache = useCallback(() => {
 }, []);
 
   async function addTodo(title) {
+    const validationError = validateTodoTitle(title);
+
+  if (validationError) {
+    throw new Error(validationError);
+  }
+
+  const sanitizedTitle = sanitizeInput(title);
   dispatch({ type: TODO_ACTIONS.ADD_TODO_START });
 
   // temporary optimistic todo
   const newTodo = {
     id: Date.now(),
-    title,
+    title: sanitizedTitle,
     isCompleted: false,
   };
 
@@ -158,9 +163,10 @@ const invalidateCache = useCallback(() => {
       type: TODO_ACTIONS.ADD_TODO_ERROR,
       payload: {
         tempId: newTodo.id,
-        error: error.message,
+        error: "Unable to add todo. Please try again.",
       },
     });
+    console.error(error);
    }
   }
 
@@ -204,18 +210,35 @@ const invalidateCache = useCallback(() => {
     dispatch({
       type: TODO_ACTIONS.COMPLETE_TODO_ERROR,
       payload: {
-        error: error.message,
+        error: "Unable to complete todo. Please try again.",
         todo: originalTodo,
       },
     });
+    console.error(error);
   }
 }
 
   async function updateTodo(editedTodo) {
+    const validationError = validateTodoTitle(
+      editedTodo.title
+    );
+
+    if (validationError) {
+      throw new Error(validationError);
+    }
+
+    const sanitizedTitle = sanitizeInput(
+      editedTodo.title
+    );
+
+    const sanitizedTodo = {
+      ...editedTodo,
+      title: sanitizedTitle,
+    };
   dispatch({
     type: TODO_ACTIONS.UPDATE_TODO_START,
     payload: {
-      todo: editedTodo,
+      todo: sanitizedTodo,
     },
   });
 
@@ -228,7 +251,7 @@ const invalidateCache = useCallback(() => {
   dispatch({
     type: TODO_ACTIONS.UPDATE_TODO_SUCCESS,
     payload: {
-      todo: editedTodo,
+      todo: sanitizedTodo,
     },
   });
 
@@ -241,8 +264,8 @@ const invalidateCache = useCallback(() => {
       },
       credentials: "include",
       body: JSON.stringify({
-        title: editedTodo.title,
-        isCompleted: editedTodo.isCompleted,
+        title: sanitizedTodo.title,
+        isCompleted: sanitizedTodo.isCompleted,
       }),
     });
 
@@ -257,19 +280,20 @@ const invalidateCache = useCallback(() => {
     dispatch({
       type: TODO_ACTIONS.UPDATE_TODO_ERROR,
       payload: {
-        error: error.message,
+        error: "Unable to update todo. Please try again.",
         todo: originalTodo,
       },
     });
+    console.error(error);
   }
 }
 
   return (
-  <div>
+  <div className={styles.container}>
     <h2>Todos</h2>
 
     {error && (
-      <div>
+      <div className={styles.error}>
         <p>{error}</p>
 
         <button
@@ -285,7 +309,7 @@ const invalidateCache = useCallback(() => {
     )}
 
     {filterError && (
-      <div>
+      <div className={styles.error}>
         <p>{filterError}</p>
 
         <button
@@ -311,7 +335,7 @@ const invalidateCache = useCallback(() => {
     )}
 
     {isTodoListLoading && (
-      <p>Loading todos...</p>
+      <div className={styles.loading}>Loading todos...</div>
     )}
 
     <SortBy

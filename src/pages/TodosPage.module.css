@@ -1,0 +1,43 @@
+.container {
+  max-width: 700px;
+  margin: 40px auto;
+  padding: 20px;
+}
+
+.title {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+.card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 16px;
+  box-shadow: var(--shadow-sm);
+}
+
+.loading {
+  text-align: center;
+  padding: 20px;
+  color: #64748b;
+  font-size: 14px;
+}
+
+.error {
+  background: #fee2e2;
+  color: #991b1b;
+  padding: 10px 12px;
+  border-radius: 6px;
+  margin: 10px 0;
+  text-align: center;
+  font-size: 14px;
+}
+
+@media (max-width: 600px) {
+  .container {
+    margin: 20px 10px;
+    padding: 12px;
+  }
+}

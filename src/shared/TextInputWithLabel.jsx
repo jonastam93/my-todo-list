@@ -6,6 +6,7 @@ const TextInputWithLabel = forwardRef(function TextInputWithLabel(
     labelText,
     onChange,
     value,
+    maxLength,
   },
   ref
 ) {
@@ -18,6 +19,7 @@ const TextInputWithLabel = forwardRef(function TextInputWithLabel(
         ref={ref}
         value={value}
         onChange={onChange}
+        maxLength={maxLength}
       />
     </>
   );
