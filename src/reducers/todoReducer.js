@@ -55,6 +55,7 @@ export function todoReducer(state, action) {
                 ...state,
                 todoList: action.payload.todos,
                 isTodoListLoading: false,
+                error: ""
             };
         case TODO_ACTIONS.FETCH_ERROR:
             return {
@@ -163,7 +164,7 @@ export function todoReducer(state, action) {
         case TODO_ACTIONS.ADD_TODO_SUCCESS:
             return {
                 ...state,
-                todoList: [...state.todoList, action.payload.todo],
+                todoList: [...state.todoList, action.payload.todo]
             };
         case TODO_ACTIONS.ADD_TODO_ERROR:
             return {
