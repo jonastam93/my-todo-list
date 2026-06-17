@@ -1,26 +1,40 @@
+import styles from "./AboutPage.module.css";
+
 function AboutPage() {
   return (
-    <div>
-      <h1>About This App</h1>
+    <div className={styles.page}>
+      <h1 className={styles.title}>About This App</h1>
 
-      <section>
-        <h2>Features</h2>
-        <ul>
-          <li>Create, edit, and delete todos</li>
-          <li>Mark todos as complete</li>
-          <li>Filter and sort tasks</li>
-          <li>Authentication-based access</li>
+      <section className={styles.card}>
+        <h2 className={styles.sectionTitle}>Features</h2>
+
+        <ul className={styles.list}>
+          <li className={styles.listItem}>
+            Create, edit, and delete todos
+          </li>
+          <li className={styles.listItem}>
+            Mark todos as complete
+          </li>
+          <li className={styles.listItem}>
+            Filter and sort tasks
+          </li>
+          <li className={styles.listItem}>
+            Authentication-based access
+          </li>
         </ul>
       </section>
 
-      <section>
-        <h2>Technology Used</h2>
-        <ul>
-          <li>React</li>
-          <li>React Router</li>
-          <li>Vite</li>
-          <li>Context API / useReducer</li>
-        </ul>
+      <section className={styles.card}>
+        <h2 className={styles.sectionTitle}>Technology Used</h2>
+
+        <div className={styles.techGrid}>
+          <div className={styles.techBox}>React</div>
+          <div className={styles.techBox}>React Router</div>
+          <div className={styles.techBox}>Vite</div>
+          <div className={styles.techBox}>
+            Context API / useReducer
+          </div>
+        </div>
       </section>
     </div>
   );

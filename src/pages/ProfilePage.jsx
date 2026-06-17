@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
+import styles from "./ProfilePage.module.css";
 
 function ProfilePage() {
   const { name, token } = useAuth();
@@ -71,11 +72,11 @@ function ProfilePage() {
       : 0;
 
   return (
-    <div>
-      <h1>Profile</h1>
+    <div className={styles.page}>
+      <h1 className={styles.title}>Profile</h1>
 
-      <section>
-        <h2>Account Information</h2>
+      <section className={styles.card}>
+        <h2 className={styles.sectionTitle}>Account Information</h2>
       
         <p>
           <strong>Name:</strong> {name}
@@ -86,29 +87,59 @@ function ProfilePage() {
         </p>
       </section>
 
-      <section>
-        <h2>Todo Stats</h2>
+      <section className={styles.card}>
+        <h2 className={styles.sectionTitle}>Todo Statistics</h2>
 
-        {loading && <p>Loading statistics...</p>}
+        {loading && (
+          <p className={styles.loading}>
+            Loading statistics...
+          </p>
+        )}
 
-        {error && <p>{error}</p>}
+        {error && (
+          <p className={styles.error}>{error}</p>
+        )}
 
         {!loading && !error && (
-          <>
-            <p>Total Todos: {todoStats.total}</p>
-            <p>Completed Todos: {todoStats.completed}</p>
-            <p>Active Todos: {todoStats.active}</p>
+        <>
+          <div className={styles.statsGrid}>
+            <div className={styles.statBox}>
+              <span className={styles.statLabel}>
+                Total Todos
+              </span>
+              <div className={styles.statValue}>
+                {todoStats.total}
+              </div>
+            </div>
 
-            {todoStats.total > 0 && (
-              <p>
-                Completion Rate: {completionPercentage}%
-              </p>
-            )}
-          </>
-        )}
-      </section>
-    </div>
-  );
-}
+            <div className={styles.statBox}>
+              <span className={styles.statLabel}>
+                Completed
+              </span>
+              <div className={styles.statValue}>
+                {todoStats.completed}
+              </div>
+            </div>
 
-export default ProfilePage;
+            <div className={styles.statBox}>
+              <span className={styles.statLabel}>
+                Active
+              </span>
+              <div className={styles.statValue}>
+                {todoStats.active}
+              </div>
+            </div>
+          </div>
+
+          {todoStats.total > 0 && (
+            <p className={styles.completionRate}>
+              Completion Rate: {completionPercentage}%
+            </p>
+          )}
+        </>
+      )}
+    </section>
+  </div>
+);
+
+export default ProfilePage;}
