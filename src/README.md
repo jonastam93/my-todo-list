@@ -19,6 +19,9 @@ Fetch API
 React Hooks (useState, useEffect, useMemo, useCallback, useRef)
 Node.js backend API (external)
 
+Link to Video Presentation of Todo APP:
+https://youtu.be/ly1pxLA5hcI
+
 📸 Screenshots
 Desktop View
 
