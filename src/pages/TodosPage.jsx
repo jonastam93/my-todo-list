@@ -220,35 +220,38 @@ const invalidateCache = useCallback(() => {
   async function deleteTodo(todoId) {
   if (!token) return;
 
+  const originalTodo = state.todoList.find(
+    (todo) => todo.id === todoId
+  );
+
+  // optimistic update (optional but consistent with your pattern)
+  dispatch({
+    type: TODO_ACTIONS.DELETE_TODO_START,
+    payload: { id: todoId },
+  });
+
   try {
-    const options = {
+    const response = await fetch(`/api/tasks/${todoId}`, {
       method: "DELETE",
       headers: {
         "X-CSRF-TOKEN": token,
       },
       credentials: "include",
-    };
-
-    const response = await fetch(
-      `/api/tasks/${todoId}`,
-      options
-    );
-
-    if (response.status === 401) {
-      throw new Error("Unauthorized");
-    }
+    });
 
     if (!response.ok) {
       throw new Error("Failed to delete todo");
     }
 
-    setTodoList((prev) =>
-      prev.filter((todo) => todo.id !== todoId)
-    );
-
     invalidateCache();
   } catch (error) {
-    setError(error.message);
+    dispatch({
+      type: TODO_ACTIONS.DELETE_TODO_ERROR,
+      payload: {
+        error: error.message,
+        todo: originalTodo,
+      },
+    });
   }
 }
 

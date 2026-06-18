@@ -16,7 +16,6 @@ export const TODO_ACTIONS = {
 
     // Delete todo operations
     DELETE_TODO_START: "DELETE_TODO_START",
-    DELETE_TODO_SUCCESS: "DELETE_TODO_SUCCESS",
     DELETE_TODO_ERROR: "DELETE_TODO_ERROR",
 
     // Update todo operations
@@ -128,13 +127,28 @@ export function todoReducer(state, action) {
                         : todo
                 ),
             };
-        case TODO_ACTIONS.DELETE_TODO_SUCCESS:
+        case TODO_ACTIONS.DELETE_TODO_START: {
             return {
                 ...state,
+                // optimistic removal
                 todoList: state.todoList.filter(
-                    (todo) => todo.id !== action.payload
+                    (todo) => todo.id !== action.payload.id
                 ),
             };
+        }
+
+        case TODO_ACTIONS.DELETE_TODO_ERROR: {
+            const { todo, error } = action.payload;
+
+            return {
+                ...state,
+                error,
+                // rollback: restore deleted todo
+                todoList: todo
+                    ? [...state.todoList, todo]
+                    : state.todoList,
+                };
+            }
         case TODO_ACTIONS.UPDATE_TODO_START:
             return {
                 ...state,
