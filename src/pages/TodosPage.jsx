@@ -88,7 +88,6 @@ function TodosPage() {
             isFilterError: !!debouncedFilterTerm,
           }
         });
-        console.error(error);
       }
     }
 
@@ -168,7 +167,6 @@ const invalidateCache = useCallback(() => {
         error: "Unable to add todo. Please try again.",
       },
     });
-    console.error(error);
    }
   }
 
@@ -216,7 +214,6 @@ const invalidateCache = useCallback(() => {
         todo: originalTodo,
       },
     });
-    console.error(error);
   }
 }
 
@@ -251,7 +248,6 @@ const invalidateCache = useCallback(() => {
 
     invalidateCache();
   } catch (error) {
-    console.error(error);
     setError(error.message);
   }
 }
@@ -322,7 +318,6 @@ const invalidateCache = useCallback(() => {
         todo: originalTodo,
       },
     });
-    console.error(error);
   }
 }
 

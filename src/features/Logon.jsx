@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useAuth } from "../contexts/AuthContext";
 import { sanitizeInput } from "../utils/sanitizeInput";
-import buttonStyles from "../pages/buttons.module.css";
+import buttonStyles from "../../shared/styles/buttons.module.css";
 
 function Logon() {
     const { login } = useAuth();

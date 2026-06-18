@@ -141,5 +141,5 @@ function ProfilePage() {
     </section>
   </div>
 );
-
-export default ProfilePage;}
+}
+export default ProfilePage;

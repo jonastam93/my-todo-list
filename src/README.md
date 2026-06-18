@@ -1,3 +1,16 @@
+📝 Project Title
+
+Todo App (React + Vite)
+
+📌 Project Description
+
+This is a full-featured Todo application built with React and Vite. It allows users to create, manage, and organize tasks with real-time updates and a responsive UI. The app demonstrates modern React patterns including hooks, optimistic UI updates, debounced search, and API integration.
+
+Key features include adding, completing, editing, deleting, filtering, and sorting todos, along with smooth UI performance and backend synchronization.
+
+🚀 Live Demo
+Deployed App: https://YOUR-DEPLOYMENT-LINK-HERE
+
 ✨ Features
 ➕ Add new todos
 ✔️ Mark todos as complete/incomplete
