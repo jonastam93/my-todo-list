@@ -33,15 +33,14 @@ React Hooks (useState, useEffect, useMemo, useCallback, useRef)
 Node.js backend API (external)
 
 Link to Video Presentation of Todo APP:
-https://youtu.be/ly1pxLA5hcI
+https://youtu.be/6scp1OsL-Cw
 
 📸 Screenshots
 Desktop View
+![Desktop View](<screenshots/desktop view.png>)
 
-![Desktop View](https://raw.githubusercontent.com/jonastam93/my-todo-list/main/desktop%20view.png)
 Mobile View
-
-![Mobile View](https://raw.githubusercontent.com/jonastam93/my-todo-list/main/mobile%20view.png)
+![Moble View](<screenshots/moble view.png>)
 
 ⚙️ Getting Started
 Prerequisites
