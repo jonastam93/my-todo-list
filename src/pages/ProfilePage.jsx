@@ -41,7 +41,7 @@ function ProfilePage() {
         }
 
         const data = await response.json();
-        const todos = data.tasks;
+        const todos = data.tasks ?? [];
 
         const total = todos.length;
         const completed = todos.filter(
