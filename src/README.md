@@ -2,11 +2,11 @@
 ➕ Add new todos
 ✔️ Mark todos as complete/incomplete
 🗑️ Delete todos (if implemented)
-🔍 Filter todos by status (All / Active / Completed)
+🔍 Filter todos by status and text search
 🔎 Search/filter todos by text input
 ↕️ Sort todos (e.g., by creation date or status)
 ⚡ Optimistic UI updates for smooth user experience
-🔄 Real-time syncing with backend API
+🔄 Synchronized with backend API
 📱 Fully responsive design (mobile + desktop)
 🧠 Debounced input handling for performance optimization
 
@@ -25,11 +25,10 @@ https://youtu.be/ly1pxLA5hcI
 📸 Screenshots
 Desktop View
 
-![Desktop View](https://vscode.dev/github/jonastam93/my-todo-list/blob/main/desktop%20view.png)
-
+![Desktop View](https://raw.githubusercontent.com/jonastam93/my-todo-list/main/desktop%20view.png)
 Mobile View
 
-![Mobile View](https://vscode.dev/github/jonastam93/my-todo-list/blob/main/mobile%20view.png)
+![Mobile View](https://raw.githubusercontent.com/jonastam93/my-todo-list/main/mobile%20view.png)
 
 ⚙️ Getting Started
 Prerequisites
@@ -42,7 +41,7 @@ npm or yarn
 Installation
 
 # Clone the repository
-git clone https://github.com/your-username/todo-app.git
+git clone https://github.com/jonastam93/my-todo-list.git
 
 # Navigate into project directory
 cd todo-app
@@ -71,7 +70,7 @@ npm run lint → Runs lint checks (if configured)
 
 This project uses a component-driven architecture to keep the UI modular and reusable. Key design choices include:
 
-Separation of concerns: UI components separated from logic-heavy hooks
+Separation of concerns: business logic extracted into reusable hooks to improve testability and maintainability
 Optimistic updates: Improves perceived performance when updating todos
 Debounced filtering: Prevents unnecessary re-renders and API calls
 CSS modular structure: Keeps styles scoped and maintainable
