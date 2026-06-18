@@ -39,11 +39,15 @@ function TodoListItem({ todo, onCompleteTodo, onUpdateTodo, onDeleteTodo }) {
             onChange={handleEdit}
           />
 
-          <button type="button" onClick={handleCancel}>
+          <button className={`${buttonStyles.base} ${buttonStyles.secondary}`}>
             Cancel
           </button>
 
-          <button type="submit" disabled={!isValidTodoTitle(workingTitle)}>
+          <button
+            type="submit"
+            className={`${buttonStyles.base} ${buttonStyles.primary}`}
+            disabled={!isValidTodoTitle(workingTitle)}
+          >
             Update
           </button>
         </form>
@@ -64,6 +68,7 @@ function TodoListItem({ todo, onCompleteTodo, onUpdateTodo, onDeleteTodo }) {
           <button
             type="button"
             onClick={() => onDeleteTodo(todo.id)}
+            className={`${buttonStyles.base} ${buttonStyles.danger}`}
           >
             Delete
           </button>

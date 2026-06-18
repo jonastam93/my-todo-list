@@ -54,6 +54,7 @@ function TodoForm({ onAddTodo }) {
 
       <button
         type="submit"
+        className={`${buttonStyles.base} ${buttonStyles.primary}`}
         disabled={!isValidTodoTitle(workingTodoTitle)}
       >
         Add Todo

@@ -1,37 +1,40 @@
-.button {
-  padding: 6px 10px;
-  border-radius: var(--radius-sm);
+.base {
+  padding: 0.6rem 1rem;
   border: none;
+  border-radius: 8px;
+  font-weight: 600;
   cursor: pointer;
-  font-size: 14px;
-
   transition: all 0.2s ease;
 }
 
 .primary {
-  background: var(--color-primary);
+  background: #4f46e5;
   color: white;
 }
 
 .primary:hover {
-  opacity: 0.9;
-}
-
-.danger {
-  background: var(--color-danger);
-  color: white;
+  background: #4338ca;
 }
 
 .secondary {
-  background: var(--color-secondary);
+  background: #e2e8f0;
+  color: #1e293b;
+}
+
+.secondary:hover {
+  background: #cbd5e1;
+}
+
+.danger {
+  background: #dc2626;
   color: white;
 }
 
-.button:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
+.danger:hover {
+  background: #b91c1c;
 }
 
-.button {
-  transition: all 0.2s ease;
+.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useAuth } from "../contexts/AuthContext";
 import { sanitizeInput } from "../utils/sanitizeInput";
+import buttonStyles from "../pages/buttons.module.css";
 
 function Logon() {
     const { login } = useAuth();
@@ -84,7 +85,11 @@ function Logon() {
                 />
             </div>
 
-            <button type="submit" disabled={isLoggingOn}>
+            <button 
+                type="submit" 
+                className={`${buttonStyles.base} ${buttonStyles.primary}`}
+                disabled={isLoggingOn}
+            >
                 {isLoggingOn ? "Logging On..." : "Log On"}
             </button>
         </form>
