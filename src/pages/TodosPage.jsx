@@ -220,6 +220,42 @@ const invalidateCache = useCallback(() => {
   }
 }
 
+  async function deleteTodo(todoId) {
+  if (!token) return;
+
+  try {
+    const options = {
+      method: "DELETE",
+      headers: {
+        "X-CSRF-TOKEN": token,
+      },
+      credentials: "include",
+    };
+
+    const response = await fetch(
+      `/api/tasks/${todoId}`,
+      options
+    );
+
+    if (response.status === 401) {
+      throw new Error("Unauthorized");
+    }
+
+    if (!response.ok) {
+      throw new Error("Failed to delete todo");
+    }
+
+    setTodoList((prev) =>
+      prev.filter((todo) => todo.id !== todoId)
+    );
+
+    invalidateCache();
+  } catch (error) {
+    console.error(error);
+    setError(error.message);
+  }
+}
+
   async function updateTodo(editedTodo) {
     const validationError = validateTodoTitle(
       editedTodo.title
@@ -376,6 +412,7 @@ const invalidateCache = useCallback(() => {
       todoList={todoList}
       onCompleteTodo={completeTodo}
       onUpdateTodo={updateTodo}
+      onDeleteTodo={deleteTodo}
       dataVersion={dataVersion}
       statusFilter={statusFilter}
     />

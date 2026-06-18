@@ -6,8 +6,9 @@ function TodoList({
   todoList,
   onCompleteTodo,
   onUpdateTodo,
+  onDeleteTodo,
   dataVersion,
-  statusFilter = "active",
+  statusFilter = "all",
 }) {
   const filteredTodoList = useMemo(() => {
     let filteredTodos;
@@ -64,6 +65,7 @@ function TodoList({
           todo={todo}
           onCompleteTodo={onCompleteTodo}
           onUpdateTodo={onUpdateTodo}
+          onDeleteTodo={onDeleteTodo}
         />
       ))}
     </ul>
