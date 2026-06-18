@@ -8,9 +8,6 @@ This is a full-featured Todo application built with React and Vite. It allows us
 
 Key features include adding, completing, editing, deleting, filtering, and sorting todos, along with smooth UI performance and backend synchronization.
 
-🚀 Live Demo
-Deployed App: https://YOUR-DEPLOYMENT-LINK-HERE
-
 ✨ Features
 ➕ Add new todos
 ✔️ Mark todos as complete/incomplete
@@ -33,15 +30,14 @@ React Hooks (useState, useEffect, useMemo, useCallback, useRef)
 Node.js backend API (external)
 
 Link to Video Presentation of Todo APP:
-https://youtu.be/ly1pxLA5hcI
+https://youtu.be/6scp1OsL-Cw
 
 📸 Screenshots
 Desktop View
+![Desktop View](<screenshots/desktop view.png>)
 
-![Desktop View](https://raw.githubusercontent.com/jonastam93/my-todo-list/main/desktop%20view.png)
 Mobile View
-
-![Mobile View](https://raw.githubusercontent.com/jonastam93/my-todo-list/main/mobile%20view.png)
+![Moble View](<screenshots/moble view.png>)
 
 ⚙️ Getting Started
 Prerequisites
