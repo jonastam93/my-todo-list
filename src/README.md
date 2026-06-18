@@ -8,9 +8,6 @@ This is a full-featured Todo application built with React and Vite. It allows us
 
 Key features include adding, completing, editing, deleting, filtering, and sorting todos, along with smooth UI performance and backend synchronization.
 
-🚀 Live Demo
-Deployed App: https://YOUR-DEPLOYMENT-LINK-HERE
-
 ✨ Features
 ➕ Add new todos
 ✔️ Mark todos as complete/incomplete
