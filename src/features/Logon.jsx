@@ -2,10 +2,6 @@ import { useState } from "react";
 import { useAuth } from "../contexts/AuthContext";
 import { sanitizeInput } from "../utils/sanitizeInput";
 
-const sanitizedEmail = sanitizeInput(email);
-
-const result = await login(sanitizedEmail, password);
-
 function Logon() {
     const { login } = useAuth();
 
@@ -38,7 +34,13 @@ function Logon() {
     setIsLoggingOn(true);
 
     try {
-        const result = await login(email.trim(), password);
+        const sanitizedEmail = sanitizeInput(email);
+        const sanitizedPassword = sanitizeInput(password);
+
+        const result = await login(
+            sanitizeInput(email),
+            sanitizeInput(password)
+        );
 
         if (!result.success) {
             setAuthError("Invalid email or password.");
