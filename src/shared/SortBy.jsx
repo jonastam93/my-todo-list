@@ -18,7 +18,7 @@ function SortBy({
             onSortByChange(event.target.value)
           }
         >
-          <option value="createdDate">
+          <option value="createdAt">
             Creation Date
           </option>
 

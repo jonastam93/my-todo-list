@@ -325,7 +325,7 @@ const invalidateCache = useCallback(() => {
     });
   }
 }
-
+console.log(todoList[0])
   return (
   <div className={styles.container}>
     <h2>Todos</h2>
